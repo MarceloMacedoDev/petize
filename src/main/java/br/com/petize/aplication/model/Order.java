@@ -1,6 +1,6 @@
-package br.com.petize.aplication.entities;
+package br.com.petize.aplication.model;
 
-import br.com.petize.aplication.entities.convertrs.OrderConvert;
+import br.com.petize.aplication.model.convertrs.OrderConvert;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +16,7 @@ public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String name;
 
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")

@@ -1,4 +1,4 @@
-package br.com.petize.aplication.entities;
+package br.com.petize.aplication.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,9 +19,13 @@ public class ItensProducts implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @OneToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne
     private Order order;
+
     private int qtd;
 }
