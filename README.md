@@ -20,7 +20,7 @@ Para executar a aplicação, siga os passos abaixo:
 https://github.com/MarceloMacedoDev/petize.git
 ```
 
-1. Inicie os containers Docker do MySQL e RabbitMQ e da aplicação:
+2. Inicie os containers Docker do MySQL e RabbitMQ e da aplicação:
    docker-compose up --d
    Isso irá criar e iniciar os containers necessários para executar a aplicação.
    ◦ O container docker-mysql contém o banco de dados MySQL e será iniciado na porta 3306.
