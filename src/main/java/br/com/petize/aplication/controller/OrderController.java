@@ -9,10 +9,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -22,10 +24,17 @@ import java.util.Optional;
 public class OrderController {
     private final OrderService orderService;
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Validated OrderDto orderDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<OrderDto> save(@RequestBody @Validated OrderDto orderDto) {
         orderService.save(orderDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(  orderService.save(orderDto)) ;
     }
+
+    @GetMapping({"","/"})
+    public ResponseEntity<List<OrderDto>> findAll() {
+        return ResponseEntity.ok(orderService.findAll());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<OrderDto> findById(@PathVariable("id") Long id) {
         OrderDto order = orderService.findById(id);

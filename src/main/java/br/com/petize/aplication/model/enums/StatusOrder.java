@@ -22,7 +22,7 @@ public enum StatusOrder {
      * @param name o nome do status
      * @param id   o identificador numérico do status
      */
-    private StatusOrder(String name, int id) {
+    StatusOrder(String name, int id) {
         this.name = name;
         this.id = id;
     }
