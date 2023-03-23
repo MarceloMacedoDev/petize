@@ -20,7 +20,7 @@ Para executar a aplicação, siga os passos abaixo:
 https://github.com/MarceloMacedoDev/petize.git
 ```
 
-2. Inicie os containers Docker do MySQL e RabbitMQ e da aplicação:
+1. Inicie os containers Docker do MySQL e RabbitMQ e da aplicação:
    docker-compose up --d
    Isso irá criar e iniciar os containers necessários para executar a aplicação.
    ◦ O container docker-mysql contém o banco de dados MySQL e será iniciado na porta 3306.
@@ -40,40 +40,40 @@ A API disponibiliza os seguintes endpoints:
 |  DELETE /orders/{id} |  Deleta o pedido correspondente ao ID informado |
 |  POST /orders/alterstatus |  Altera o status de um pedido através de uma mensagem enviada para a fila do RabbitMQ |
 
-:
-: 
-:
-: 
-: 
-: 
-Tratamento de exceções
+**Tratamento de exceções**
 A API utiliza a classe ResourceExceptionHandler para tratar exceções de forma centralizada. As exceções tratadas são:
-• ResourceNotFoundException: lançada quando não é possível encontrar um recurso correspondente ao ID informado
-• MethodArgumentNotValidException: lançada quando há erros de validação nos dados informados na requisição
-Mapeamento de entidades
+- ResourceNotFoundException: lançada quando não é possível encontrar um recurso correspondente ao ID informado
+-  MethodArgumentNotValidException: lançada quando há erros de validação nos dados informados na requisição
+
+**Mapeamento de entidades**
 O projeto utiliza a interface OrderMapper para mapear as entidades de Order para OrderDto e vice-versa.
-Serviços
+
+**Serviços**
 O projeto utiliza a classe OrderService para executar as operações de CRUD no banco de dados e gerenciamento de status de pedidos.
 
-    •  
-Serviço de eventos
+**Serviço de eventos**
 O serviço de eventos é responsável por atualizar o status dos pedidos quando um evento de OrderCreatedEvent é publicado no RabbitMQ.
 O serviço de eventos é implementado no pacote com.petize.events e consiste em duas classes:
-• EventPublisher: Publica eventos de OrderCreatedEvent no RabbitMQ
-• OrderCreatedEventListener: Ouve os eventos de OrderCreatedEvent do RabbitMQ e atualiza o status dos pedidos
+- EventPublisher: Publica eventos de OrderCreatedEvent no RabbitMQ
+- OrderCreatedEventListener: Ouve os eventos de OrderCreatedEvent do RabbitMQ e atualiza o status dos pedidos
+
 Aqui estão as informações adicionais para ajudá-lo a entender como o serviço de eventos é implementado:
-EventPublisher
+
+**EventPublisher**
 A classe EventPublisher publica eventos de OrderCreatedEvent no RabbitMQ. O método send é usado para publicar um evento.
-OrderCreatedEventListener
+
+**OrderCreatedEventListener**
 A classe OrderCreatedEventListener ouve eventos de OrderCreatedEvent no RabbitMQ e atualiza o status dos pedidos correspondentes no banco de dados. O método consume é usado para receber um evento.
-Configuração do RabbitMQ
+
+**Configuração do RabbitMQ**
 A configuração do RabbitMQ é feita no arquivo application.properties. Aqui estão as configurações disponíveis:
-rubyCopy code
+
+```ruby
 spring.rabbitmq.host=${RABBITMQ_HOST:localhost}
 spring.rabbitmq.port=${RABBITMQ_PORT:5672}
 spring.rabbitmq.username=${RABBITMQ_USERNAME:admin}
 spring.rabbitmq.password=${RABBITMQ_PASSWORD:123456}
-
 petize.rabbitmq.exchange=${RABBITMQ_EXCHANGE:petize.exchange}
 petize.rabbitmq.queue=${RABBITMQ_QUEUE:petize.queue}
 petize.rabbitmq.routingkey=${RABBITMQ_ROUTINGKEY:petize.routingkey}
+```
