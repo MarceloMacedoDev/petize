@@ -28,7 +28,7 @@ public class Order implements Serializable {
 
 	private String name;
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	@Column()
 	private Instant createdAt;
 
 	@ManyToMany(fetch = FetchType.EAGER)

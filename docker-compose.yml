@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  docker-mysql:
+    build:
+      dockerfile: ./mysql.dockerfile
+      context: .
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - network_petize
+
+  docker-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: docker-rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ./dados:/var/lib/rabbitmq/
+    environment:
+        - RABBITMQ_DEFAULT_USER=admin
+        - RABBITMQ_DEFAULT_PASS=123456
+    networks:
+      - network_petize
+
+  java:
+    build:
+      dockerfile: petize.dockerfile
+      context: .
+    ports:
+      - "8080:8080"
+    networks:
+      - network_petize
+    depends_on:
+      - docker-mysql
+      - docker-rabbitmq
+
+volumes:
+  mysql_data:
+  rabbitmq_data:
+
+networks:
+  network_petize:

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -13,7 +14,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class OrderCreatedEventDTO  implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    @NotNull
     private Long id;
+
+    @NotNull
     private String value ;
 
 }
