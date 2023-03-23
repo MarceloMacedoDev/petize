@@ -77,3 +77,11 @@ petize.rabbitmq.exchange=${RABBITMQ_EXCHANGE:petize.exchange}
 petize.rabbitmq.queue=${RABBITMQ_QUEUE:petize.queue}
 petize.rabbitmq.routingkey=${RABBITMQ_ROUTINGKEY:petize.routingkey}
 ```
+# **Ambientes**
+**Desenvolvimento**
+O ambiente de desenvolvimento utiliza o banco de dados em memória H2. Para executar a aplicação nesse ambiente:src/main/resources/application-dev.properties.
+
+**Testes**
+O ambiente de testes utiliza o banco de dados MySQL. Para executar a aplicação nesse ambiente, basta definir a variável de ambiente APP_PROFILE como test.
+
+Lembrando que é necessário ter as configurações de conexão com o banco de dados MySQL definidas no arquivo src/main/resources/application-test.properties.
