@@ -31,15 +31,22 @@ https://github.com/MarceloMacedoDev/petize.git
 **Endpoints**
 
 A API disponibiliza os seguintes endpoints:
-|  rotas |  Descrição |
-| :------------ | :------------ |
-|  POST /orders | Cria um novo pedido  |
-| GET /orders  | Retorna uma lista com todos os pedidos cadastrados  |
-| GET /orders/{id}  |  Retorna o pedido correspondente ao ID informado  |
-| PUT /orders/{id}  | Atualiza o pedido correspondente ao ID informado  |
-|  DELETE /orders/{id} |  Deleta o pedido correspondente ao ID informado |
-|  POST /orders/alterstatus |  Altera o status de um pedido através de uma mensagem enviada para a fila do RabbitMQ |
+ 
 
+ | Endpoint | 	Método | 	Descrição | 
+ |  :------------  | :---------------- | 
+ | /orders | 	POST | 	Cria uma nova ordem com as informações contidas no corpo da requisição | 
+ | /orders | 	GET | 	Retorna a lista de todas as ordens | 
+ | /orders/{id} | 	GET | 	Retorna a ordem correspondente ao id fornecido | 
+ | /orders/{id} | 	DELETE | 	Exclui a ordem correspondente ao id fornecido
+ | /orders/{id} | 	PUT | 	Atualiza uma ordem existente na base de dados com as informações contidas no corpo da requisição |
+ | /orders/alterstatus | 	POST	 | Atualiza o status de uma ordem existente na base de dados com as informações contidas no corpo da requisição |
+ | /products | 	POST | 	Cria um novo produto com as informações contidas no corpo da requisição |
+ | /products | 	GET | 	Retorna a lista de todos os produtos |
+ | /products/{id} | 	GET | 	Retorna o produto correspondente ao id fornecido |
+ | /products/{id} | 	DELETE | 	Exclui o produto correspondente ao id fornecido |
+ | /products/{id} | 	PUT | 	Atualiza um produto existente na base de dados com as informações contidas no corpo da requisição |
+ 
 **Tratamento de exceções**
 A API utiliza a classe ResourceExceptionHandler para tratar exceções de forma centralizada. As exceções tratadas são:
 - ResourceNotFoundException: lançada quando não é possível encontrar um recurso correspondente ao ID informado
