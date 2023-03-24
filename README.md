@@ -33,19 +33,22 @@ Endpoints
 
 A API disponibiliza os seguintes endpoints:
 
-| Endpoint | Método | Descrição |
-| :------------ | :---------------- |
-| /orders | POST | Cria uma nova ordem com as informações contidas no corpo da requisição |
-| /orders | GET | Retorna a lista de todas as ordens |
-| /orders/{id} | GET | Retorna a ordem correspondente ao id fornecido |
-| /orders/{id} | DELETE | Exclui a ordem correspondente ao id fornecido |
-| /orders/{id} | PUT | Atualiza uma ordem existente na base de dados com as informações contidas no corpo da requisição |
-| /orders/alterstatus | POST | Atualiza o status de uma ordem existente na base de dados com as informações contidas no corpo da requisição |
-| /products | POST | Cria um novo produto com as informações contidas no corpo da requisição |
-| /products | GET | Retorna a lista de todos os produtos |
-| /products/{id} | GET | Retorna o produto correspondente ao id fornecido |
-| /products/{id} | DELETE | Exclui o produto correspondente ao id fornecido |
-| /products/{id} | PUT | Atualiza um produto existente na base de dados com as informações contidas no corpo da requisição |
+**Para Order:**
+
+- POST /orders - cria uma nova ordem com base nas informações fornecidas no corpo da solicitação (OrderDto)
+- GET /orders - recupera todas as ordens
+- GET /orders/{id} - recupera uma ordem com base no ID fornecido
+- PUT /orders/{id} - atualiza uma ordem existente com base no ID fornecido e nas informações fornecidas no corpo da solicitação (OrderDto)
+- DELETE /orders/{id} - exclui uma ordem com base no ID fornecido
+- POST /orders/alterstatus - atualiza o status de uma ordem com base nas informações fornecidas no corpo da solicitação (OrderCreatedEventDTO)
+
+**Para Product:**
+
+- POST /products - cria um novo produto com base nas informações fornecidas no corpo da solicitação (ProductDto)
+- GET /products - recupera todos os produtos
+- GET /products/{id} - recupera um produto com base no ID fornecido
+- PUT /products/{id} - atualiza um produto existente com base no ID fornecido e nas informações fornecidas no corpo da solicitação (ProductDto)
+- DELETE /products/{id} - exclui um produto com base no ID fornecido
 
 **Tratamento de exceções**
 A API utiliza a classe ResourceExceptionHandler para tratar exceções de forma centralizada. As exceções tratadas são:
