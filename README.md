@@ -24,6 +24,7 @@ https://github.com/MarceloMacedoDev/petize.git
 
 2. Inicie os containers Docker do MySQL e RabbitMQ e da aplicação:
  ```ruby
+docker  build .  
 docker-compose up --d
 ```
    Isso irá criar e iniciar os containers necessários para executar a aplicação.
