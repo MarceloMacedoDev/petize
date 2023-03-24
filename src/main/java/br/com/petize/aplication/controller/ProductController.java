@@ -1,25 +1,15 @@
 package br.com.petize.aplication.controller;
 
-import br.com.petize.aplication.dto.OrderDto;
 import br.com.petize.aplication.dto.ProductDto;
-import br.com.petize.aplication.mapper.ProductMapper;
-import br.com.petize.aplication.model.Product;
 import br.com.petize.aplication.service.ProductService;
 import br.com.petize.aplication.service.exception.ResourceNotFoundException;
-import com.sun.tools.javac.util.DefinedBy.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Controlador responsável por gerenciar as operações de produtos.
