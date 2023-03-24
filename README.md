@@ -46,6 +46,7 @@ A API disponibiliza os seguintes endpoints:
 | /products/{id} | GET | Retorna o produto correspondente ao id fornecido |
 | /products/{id} | DELETE | Exclui o produto correspondente ao id fornecido |
 | /products/{id} | PUT | Atualiza um produto existente na base de dados com as informações contidas no corpo da requisição |
+
 **Tratamento de exceções**
 A API utiliza a classe ResourceExceptionHandler para tratar exceções de forma centralizada. As exceções tratadas são:
 - ResourceNotFoundException: lançada quando não é possível encontrar um recurso correspondente ao ID informado
