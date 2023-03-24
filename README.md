@@ -26,6 +26,7 @@ https://github.com/MarceloMacedoDev/petize.git
    ◦ O container docker-mysql contém o banco de dados MySQL e será iniciado na porta 3306.
    ◦ O container docker-rabbitmq contém o RabbitMQ e será iniciado nas portas 5672 e 15672.
    ◦ O container java contém a aplicação e será iniciado na porta 8080.
+   
 ### ***Tabela Product sera carregada com 20 produtos pre-cadastrados***
 
 O aplicativo estará disponível em http://localhost:8080.
@@ -46,6 +47,7 @@ A API disponibiliza os seguintes endpoints:
 | /products/{id} | GET | Retorna o produto correspondente ao id fornecido |
 | /products/{id} | DELETE | Exclui o produto correspondente ao id fornecido |
 | /products/{id} | PUT | Atualiza um produto existente na base de dados com as informações contidas no corpo da requisição |
+
 **Tratamento de exceções**
 A API utiliza a classe ResourceExceptionHandler para tratar exceções de forma centralizada. As exceções tratadas são:
 - ResourceNotFoundException: lançada quando não é possível encontrar um recurso correspondente ao ID informado
