@@ -39,7 +39,7 @@ public class RabbitMQComponent {
      *
      * @param event as informações da ordem criada a serem enviadas.
      */
-    public void send(OrderCreatedEventDTO event) {
+    public void EventPublisher(OrderCreatedEventDTO event) {
         try {
             amqpTemplate.convertAndSend(exchange, routingkey, event);
             log.info("Send msg = {}", event);
@@ -55,7 +55,7 @@ public class RabbitMQComponent {
      * @throws ResourceNotFoundException caso ocorra algum erro ao atualizar os dados da ordem na base de dados.
      */
     @RabbitListener(queues = {"${petize.rabbitmq.queue}"})
-    public void consume(OrderCreatedEventDTO message) {
+    public void OrderCreatedEventListener(OrderCreatedEventDTO message) {
         log.info("Received message -> {}", message);
         try {
             Order order = orderRepository.findById(message.getId()).get();

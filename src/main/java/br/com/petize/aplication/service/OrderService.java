@@ -108,7 +108,7 @@ public class OrderService {
                            return   new ResourceNotFoundException("Ordem inexistentes!");
 
                         });
-        mqComponent.send(event);
+        mqComponent.EventPublisher(event);
     }
 
 }
