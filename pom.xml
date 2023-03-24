@@ -17,7 +17,7 @@
 		<java.version>17</java.version>
 		<org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><mainClass>br.com.petize.aplication.Application.java</mainClass>
-<!--		<mainClass>br.com.petize.aplication.Application</mainClass>-->
+
 
 	</properties>
 	<dependencies>
@@ -71,17 +71,20 @@
 
 	<build>
 		<plugins>
-			<!--<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
 				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>br.com.petize.aplication.Application</mainClass>
-						</manifest>
-					</archive>
+					<excludes>
+						<exclude>br/com/petize/aplication/mapper/**</exclude>
+						<exclude>br/com/petize/aplication/model/**</exclude>
+						<exclude>br/com/petize/aplication/repository/**</exclude>
+						<exclude>br/com/petize/aplication/dto/**</exclude>
+						<exclude>br/com/petize/aplication/controller/exception/**</exclude>
+					</excludes>
 				</configuration>
-			</plugin>-->
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

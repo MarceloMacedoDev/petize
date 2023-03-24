@@ -46,7 +46,8 @@ public class ProductService {
      */
     public ProductDto save(ProductDto productDto) {
         Product entity = productMapper.toEntity(productDto);
-        return productMapper.toDto(repository.save(entity));
+        productDto = productMapper.toDto(repository.save(entity));
+        return productDto;
     }
 
     /**
@@ -70,18 +71,7 @@ public class ProductService {
                 () -> new ResourceNotFoundException("Não foi possível encontrar o produto com o id " + id)));
     }
 
-    /**
-     * Busca produtos baseados em uma condição e retorna uma página.
-     *
-     * @param productDto DTO com as condições para busca dos produtos
-     * @param pageable   informações da paginação
-     * @return página com a lista de produtos encontrados
-     */
-    public Page<ProductDto> findByCondition(ProductDto productDto, Pageable pageable) {
-        Page<Product> entityPage = repository.findAll(pageable);
-        List<Product> entities = entityPage.getContent();
-        return new PageImpl<>(productMapper.toDto(entities), pageable, entityPage.getTotalElements());
-    }
+
 
     /**
      * Atualiza as informações de um produto pelo seu identificador.

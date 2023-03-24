@@ -55,9 +55,9 @@ public class OrderService {
     public OrderDto save(OrderDto orderDto) {
         orderDto.setCreatedAt(Instant.now());
         Order entity = orderMapper.toEntity(orderDto);
-        entity = repository.save(entity);
+        orderDto =orderMapper.toDto( repository.save(orderMapper.toEntity(orderDto)));
 
-        return findById(entity.getId());
+        return orderDto;
     }
 
     /**
@@ -78,7 +78,8 @@ public class OrderService {
      */
     public OrderDto findById(long id) {
         return orderMapper.
-                toDto(repository.findById(id).orElseThrow(
+                toDto(
+                        repository.findById(id).orElseThrow(
                         () -> new ResourceNotFoundException("Não é possível excluir dados inexistentes!")
                 ));
     }
@@ -94,7 +95,8 @@ public class OrderService {
         OrderDto data = findById(id);
         Order entity = orderMapper.toEntity(orderDto);
         BeanUtils.copyProperties(data, entity, Util.getNullProperties(data));
-        return save(orderMapper.toDto(entity));
+        entity= repository.save(entity);
+        return (orderMapper.toDto(entity));
     }
 
     /**
@@ -109,7 +111,7 @@ public class OrderService {
                            return   new ResourceNotFoundException("Ordem inexistentes!");
 
                         });
-        mqComponent.EventPublisher(event);
+        mqComponent.eventPublisher(event);
     }
 
 }

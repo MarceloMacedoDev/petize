@@ -83,11 +83,11 @@ Aqui estão as informações adicionais para ajudá-lo a entender como o serviç
 
 **EventPublisher**
 
-A classe EventPublisher publica eventos de OrderCreatedEvent no RabbitMQ. O método send é usado para publicar um evento.
+O Método eventPublisher publica eventos de OrderCreatedEvent no RabbitMQ. O método send é usado para publicar um evento.
 
 **OrderCreatedEventListener**
 
-A classe OrderCreatedEventListener ouve eventos de OrderCreatedEvent no RabbitMQ e atualiza o status dos pedidos correspondentes no banco de dados. O método consume é usado para receber um evento.
+O Método  orderCreatedEventListener ouve eventos de OrderCreatedEvent no RabbitMQ e atualiza o status dos pedidos correspondentes no banco de dados. O método consume é usado para receber um evento.
 
 **Configuração do RabbitMQ**
 
@@ -102,6 +102,10 @@ petize.rabbitmq.exchange=${RABBITMQ_EXCHANGE:petize.exchange}
 petize.rabbitmq.queue=${RABBITMQ_QUEUE:petize.queue}
 petize.rabbitmq.routingkey=${RABBITMQ_ROUTINGKEY:petize.routingkey}
 ```
+### Testes Unitários
+
+Foi produzido classes de testes Unitários para as Classes de Service,  Comtrolle e Components
+
 # **Ambientes**
 **Desenvolvimento**
 

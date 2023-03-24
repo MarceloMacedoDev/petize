@@ -63,11 +63,13 @@ public class ProductController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws ResourceNotFoundException {
-        Optional.ofNullable(productService.findById(id)).orElseThrow(() -> {
-            log.error("Não é possível excluir produtos inexistentes!");
-            return new ResourceNotFoundException("Não é possível excluir produtos inexistentes!");
-        });
-        productService.deleteById(id);
+        try {
+            productService.deleteById(id);
+
+        }catch (Exception e){
+            log.error("Não é possível excluir dados inexistentes!");
+            throw  new ResourceNotFoundException("Não é possível excluir dados inexistentes!");
+        };
         return ResponseEntity.ok().build();
     }
 

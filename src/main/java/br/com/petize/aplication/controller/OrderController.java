@@ -87,11 +87,14 @@ public class OrderController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        Optional.ofNullable(orderService.findById(id)).orElseThrow(() -> {
+
+        try {
+            orderService.deleteById(id);
+
+        }catch (Exception e){
             log.error("Não é possível excluir dados inexistentes!");
-            return new ResourceNotFoundException("Não é possível excluir dados inexistentes!");
-        });
-        orderService.deleteById(id);
+            throw  new ResourceNotFoundException("Não é possível excluir dados inexistentes!");
+        };
         return ResponseEntity.ok().build();
     }
 
