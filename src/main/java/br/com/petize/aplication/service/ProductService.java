@@ -1,13 +1,7 @@
 package br.com.petize.aplication.service;
 
-import br.com.petize.aplication.dto.ProductDto;
-import br.com.petize.aplication.mapper.ProductMapper;
-import br.com.petize.aplication.model.Product;
-import br.com.petize.aplication.repository.ProductRepository;
-import br.com.petize.aplication.service.exception.ResourceNotFoundException;
-import br.com.petize.aplication.util.Util;
-import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -15,14 +9,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import br.com.petize.aplication.dto.ProductDto;
+import br.com.petize.aplication.mapper.ProductMapper;
+import br.com.petize.aplication.model.Product;
+import br.com.petize.aplication.repository.ProductRepository;
+import br.com.petize.aplication.service.exception.ResourceNotFoundException;
+import br.com.petize.aplication.util.Util;
 
 /**
  * Classe responsável por realizar as operações de negócio relacionadas a produtos.
  */
 
-@Slf4j
 @Service
 @Transactional
 public class ProductService {

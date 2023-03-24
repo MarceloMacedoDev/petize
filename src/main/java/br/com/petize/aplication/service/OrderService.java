@@ -1,22 +1,23 @@
 package br.com.petize.aplication.service;
 
+import java.time.Instant;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
 import br.com.petize.aplication.dto.OrderCreatedEventDTO;
 import br.com.petize.aplication.dto.OrderDto;
-import br.com.petize.aplication.mapper.OrderMapper;
 import br.com.petize.aplication.events.RabbitMQComponent;
+import br.com.petize.aplication.mapper.OrderMapper;
 import br.com.petize.aplication.model.Order;
 import br.com.petize.aplication.repository.OrderRepository;
 import br.com.petize.aplication.service.exception.ResourceNotFoundException;
 import br.com.petize.aplication.util.Util;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.time.Instant;
-import java.util.List;
 
 /**
  * Serviço responsável por gerenciar as operações relacionadas a pedidos. Realiza operações CRUD
@@ -34,8 +35,7 @@ public class OrderService {
     private final OrderMapper orderMapper;
 
     private final RabbitMQComponent mqComponent;
-
-    private final ObjectMapper objectMapper;
+ 
 
     /**
      * Retorna todos os pedidos presentes no banco de dados.

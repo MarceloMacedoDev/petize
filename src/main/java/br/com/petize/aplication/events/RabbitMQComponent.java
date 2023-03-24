@@ -1,17 +1,17 @@
 package br.com.petize.aplication.events;
-import br.com.petize.aplication.dto.OrderCreatedEventDTO;
-import br.com.petize.aplication.mapper.OrderMapper;
-import br.com.petize.aplication.model.Order;
-import br.com.petize.aplication.repository.OrderRepository;
-import br.com.petize.aplication.service.exception.ResourceNotFoundException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.time.Instant;
+
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
+import br.com.petize.aplication.dto.OrderCreatedEventDTO;
+import br.com.petize.aplication.model.Order;
+import br.com.petize.aplication.repository.OrderRepository;
+import br.com.petize.aplication.service.exception.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Componente responsável por enviar e receber mensagens via RabbitMQ e atualizar o status das ordens na base de dados.
@@ -24,8 +24,7 @@ public class RabbitMQComponent {
     private final AmqpTemplate amqpTemplate;
 
     private final OrderRepository orderRepository;
-
-    private final OrderMapper orderMapper;
+ 
 
     @Value("${petize.rabbitmq.exchange}")
     private String exchange;
@@ -41,7 +40,7 @@ public class RabbitMQComponent {
     public void EventPublisher(OrderCreatedEventDTO event) {
         try {
             amqpTemplate.convertAndSend(exchange, routingkey, event);
-            log.info("Send msg = {}", event);
+            log.info("Send msg -> {}", event);
         } catch (Exception e) {
             throw new ResourceNotFoundException("Erro de processamento de evento!");
         }
