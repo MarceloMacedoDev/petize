@@ -3,10 +3,11 @@ package br.com.petize.aplication.service;
 import br.com.petize.aplication.dto.OrderCreatedEventDTO;
 import br.com.petize.aplication.dto.OrderDto;
 import br.com.petize.aplication.mapper.OrderMapper;
-import br.com.petize.aplication.message.RabbitMQComponent;
+import br.com.petize.aplication.events.RabbitMQComponent;
 import br.com.petize.aplication.model.Order;
 import br.com.petize.aplication.repository.OrderRepository;
 import br.com.petize.aplication.service.exception.ResourceNotFoundException;
+import br.com.petize.aplication.util.Util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -92,7 +93,7 @@ public class OrderService {
     public OrderDto update(OrderDto orderDto, Long id) {
         OrderDto data = findById(id);
         Order entity = orderMapper.toEntity(orderDto);
-        BeanUtils.copyProperties(data, entity);
+        BeanUtils.copyProperties(data, entity, Util.getNullProperties(data));
         return save(orderMapper.toDto(entity));
     }
 

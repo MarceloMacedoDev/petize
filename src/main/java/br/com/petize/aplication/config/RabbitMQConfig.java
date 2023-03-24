@@ -1,4 +1,4 @@
-package br.com.petize.aplication.message;
+package br.com.petize.aplication.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

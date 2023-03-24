@@ -34,7 +34,8 @@ docker-compose up --d
 ### ***Tabela Product sera carregada com 20 produtos pre-cadastrados***
 
 O aplicativo estará disponível em http://localhost:8080.
-Endpoints
+
+**Endpoints**
 
 A API disponibiliza os seguintes endpoints:
 
@@ -67,14 +68,14 @@ A API utiliza a classe ResourceExceptionHandler para tratar exceções de forma 
 
 **Mapeamento de entidades**
 
-O projeto utiliza a interface OrderMapper para mapear as entidades de Order para OrderDto e vice-versa.
+O projeto utiliza a interface OrderMapper para mapear as entidades de Order para OrderDto e de Product para ProductDto e vice-versa.
 
 **Serviços**
 O projeto utiliza a classe OrderService para executar as operações de CRUD no banco de dados e gerenciamento de status de pedidos.
 
 **Serviço de eventos**
 O serviço de eventos é responsável por atualizar o status dos pedidos quando um evento de OrderCreatedEvent é publicado no RabbitMQ.
-O serviço de eventos é implementado no pacote com.petize.events e consiste em duas classes:
+O serviço de eventos é implementado no pacote br.com.petize.aplication.events e consiste em duas classes:
 - EventPublisher: Publica eventos de OrderCreatedEvent no RabbitMQ
 - OrderCreatedEventListener: Ouve os eventos de OrderCreatedEvent do RabbitMQ e atualiza o status dos pedidos
 

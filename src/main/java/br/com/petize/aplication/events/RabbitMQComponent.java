@@ -1,5 +1,4 @@
-package br.com.petize.aplication.message;
-
+package br.com.petize.aplication.events;
 import br.com.petize.aplication.dto.OrderCreatedEventDTO;
 import br.com.petize.aplication.mapper.OrderMapper;
 import br.com.petize.aplication.model.Order;
