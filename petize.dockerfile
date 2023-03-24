@@ -1,15 +1,14 @@
  # Use a JDK 17 base image from the Docker Hub
 FROM openjdk:17-jdk-slim
 
- # Set the working directory
-WORKDIR /app
-
- # Copy the source code to the container
-COPY . /app
-
- # Compile the Java code
-RUN ./mvnw clean package
-
+ #  # Set the working directory
+   # WORKDIR /app
+   #
+   #  # Copy the source code to the container
+   # COPY . /app
+   #
+   #  # Compile the Java code
+   # RUN ./mvnw clean package
  # Define a porta que o aplicativo escuta
 EXPOSE 8080
 
