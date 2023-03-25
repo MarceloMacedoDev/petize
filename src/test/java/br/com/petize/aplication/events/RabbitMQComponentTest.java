@@ -15,7 +15,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,6 +26,8 @@ class RabbitMQComponentTest {
     @Mock
     private OrderRepository orderRepository;
 
+    @Mock
+    private RetryComponent retryComponent;
     @InjectMocks
     private RabbitMQComponent rabbitMQComponent;
 
@@ -62,12 +63,12 @@ class RabbitMQComponentTest {
         event.setValue(status);
 
 
-        rabbitMQComponent = new RabbitMQComponent(amqpTemplate, orderRepository);
+        rabbitMQComponent = new RabbitMQComponent(amqpTemplate, orderRepository, retryComponent);
 
         lenient().when(orderRepository.findById(anyLong())).thenReturn(Optional.empty());
         when(orderRepository.findById(any())).thenReturn(Optional.of(order));
 
-        rabbitMQComponent = new RabbitMQComponent(amqpTemplate, orderRepository);
+
 
         // when
         rabbitMQComponent.orderCreatedEventListener(event);

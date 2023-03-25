@@ -116,3 +116,37 @@ O ambiente de desenvolvimento utiliza o banco de dados em memória H2. Para exec
 O ambiente de testes utiliza o banco de dados MySQL. Para executar a aplicação nesse ambiente, basta definir a variável de ambiente APP_PROFILE como test.
 
 Lembrando que é necessário ter as configurações de conexão com o banco de dados MySQL definidas no arquivo src/main/resources/application-test.properties.
+
+## Retry
+O Retry é utilizado para lidar com possíveis falhas temporárias na comunicação com o RabbitMQ. O componente RetryComponent é responsável por criar um objeto RetryRegistry, que guarda as configurações de retry, e por executar um bloco de código com a opção de retry, através do método executeWithRetry.
+
+Abaixo estão as configurações do retry:
+
+- **maxAttempts**: número máximo de tentativas de comunicação antes de retornar erro;
+- **waitDuration**: tempo de espera entre as tentativas de comunicação.
+
+Essas configurações estão definidas no arquivo **application.properties**, na seção retry. Caso seja necessário alterá-las, basta atualizar os valores correspondentes nessa seção.
+
+## Prometheus
+
+O Prometheus é utilizado para monitorar a aplicação e coletar métricas de performance e disponibilidade. A implementação das métricas é feita através do uso da biblioteca Micrometer, que possui integração com o Prometheus.
+
+Abaixo estão os componentes que foram configurados para exportar métricas:
+
+- Counters: utilizados para medir a quantidade de vezes que um evento ocorre. Foram configurados dois contadores:
+
+**rabbitmq_sent_messages_total**: contador de mensagens enviadas para o RabbitMQ;
+**rabbitmq_received_messages_total**: contador de mensagens recebidas do RabbitMQ.
+
+- Timers: utilizados para medir o tempo de execução de um bloco de código. Foi configurado um timer:
+
+**rabbitmq_event_send_duration_time**: mede o tempo de execução do método eventPublisher da classe RabbitMQComponent.
+**rabbitmq_event_received_duration_time**: mede o tempo de execução recebimeto do RabbitMQ.
+
+As métricas podem ser acessadas através da URL http://localhost:8080/actuator/prometheus. Além disso, o Prometheus pode ser configurado para fazer scraping dessas métricas, permitindo a visualização e análise dos dados através de gráficos e dashboards.
+
+### Coletar métricas e logs na AWS, você pode seguir os seguintes passos:
+
+- Configurar o envio de logs e métricas para o Amazon CloudWatch, usando ferramentas como AWS SDK, AWS CLI, AWS CloudFormation.
+
+- Utilizar o Amazon CloudWatch para visualizar, analisar e armazenar os logs e métricas coletados, criando dashboards, alarmes e gráficos personalizados para monitorar o desempenho do seu sistema e identificar possíveis problemas.
