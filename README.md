@@ -1,5 +1,5 @@
 # Petize - Desafio Técnico
-###### Petize é um aplicativo que recebe pedidos de vendas de produtos e os processa. O objetivo deste desafio técnico é criar uma aplicação Java com o Spring Boot que utilize uma fila de mensagens para processar os pedidos recebidos.Petize é um aplicativo que recebe pedidos de vendas de produtos e os processa. O objetivo deste desafio técnico é criar uma aplicação Java com o Spring Boot que utilize uma fila de mensagens para processar os pedidos recebidos.
+ **Petize é um aplicativo que recebe pedidos de vendas de produtos e os processa. O objetivo deste desafio técnico é criar uma aplicação Java com o Spring Boot que utilize uma fila de mensagens para processar os pedidos recebidos.Petize é um aplicativo que recebe pedidos de vendas de produtos e os processa. O objetivo deste desafio técnico é criar uma aplicação Java com o Spring Boot que utilize uma fila de mensagens para processar os pedidos recebidos.**
 **A aplicação deve ser capaz de:**
 
 - Receber pedidos de vendas via API REST;
@@ -71,27 +71,39 @@ A API utiliza a classe ResourceExceptionHandler para tratar exceções de forma 
 O projeto utiliza a interface OrderMapper para mapear as entidades de Order para OrderDto e de Product para ProductDto e vice-versa.
 
 **Serviços**
+
 O projeto utiliza a classe OrderService para executar as operações de CRUD no banco de dados e gerenciamento de status de pedidos.
 
 **Serviço de eventos**
+
 O serviço de eventos é responsável por atualizar o status dos pedidos quando um evento de OrderCreatedEvent é publicado no RabbitMQ.
-O serviço de eventos é implementado no pacote br.com.petize.aplication.events e consiste em duas classes:
-- EventPublisher: Publica eventos de OrderCreatedEvent no RabbitMQ
-- OrderCreatedEventListener: Ouve os eventos de OrderCreatedEvent do RabbitMQ e atualiza o status dos pedidos
+O serviço de eventos é implementado no pacote br.com.petize.aplication.events e consiste em dois mótodos:
+- eventPublisher: Publica eventos de OrderCreatedEvent no RabbitMQ
+- orderCreatedEventListener: Ouve os eventos de OrderCreatedEvent do RabbitMQ e atualiza o status dos pedidos
 
-Aqui estão as informações adicionais para ajudá-lo a entender como o serviço de eventos é implementado:
+### Configuração do RabbitMQ
 
-**EventPublisher**
+Esta aplicação utiliza o RabbitMQ para comunicação entre seus módulos. A configuração do RabbitMQ é definida na classe `RabbitMQConfig`.
 
-O Método eventPublisher publica eventos de OrderCreatedEvent no RabbitMQ. O método send é usado para publicar um evento.
+**Parâmetros**
 
-**OrderCreatedEventListener**
+Os seguintes parâmetros são utilizados na classe `RabbitMQConfig`:
 
-O Método  orderCreatedEventListener ouve eventos de OrderCreatedEvent no RabbitMQ e atualiza o status dos pedidos correspondentes no banco de dados. O método consume é usado para receber um evento.
+- **`petize.rabbitmq.queue`: nome da fila.
+- `petize.rabbitmq.exchange`: nome da troca.
+- `petize.rabbitmq.routingkey`: rota para a troca.
 
-**Configuração do RabbitMQ**
+**Métodos**
 
-A configuração do RabbitMQ é feita no arquivo application.properties. Aqui estão as configurações disponíveis:
+A classe `RabbitMQConfig` possui os seguintes métodos:
+
+- `queue()`: cria uma fila durável, exclusiva e auto-excluível no RabbitMQ.
+- `exchange()`: cria uma troca direta no RabbitMQ.
+- `binding(Queue queue, DirectExchange exchange)`: cria uma ligação entre a fila e a troca definidas.
+- `jsonMessageConverter()`: define o conversor de mensagens para JSON a ser utilizado pelo RabbitMQ.
+- `rabbitTemplate(ConnectionFactory connectionFactory)`: retorna um objeto AmqpTemplate configurado com o RabbitTemplate e o MessageConverter.
+
+Para mais informações, consulte a documentação do [RabbitMQ](https://www.rabbitmq.com/documentation.html).
 
 ```ruby
 spring.rabbitmq.host=${RABBITMQ_HOST:localhost}
@@ -106,7 +118,8 @@ petize.rabbitmq.routingkey=${RABBITMQ_ROUTINGKEY:petize.routingkey}
 
 Foi produzido classes de testes Unitários para as Classes de Service,  Comtrolle e Components
 
-# **Ambientes**
+## **Ambientes**
+
 **Desenvolvimento**
 
 O ambiente de desenvolvimento utiliza o banco de dados em memória H2. Para executar a aplicação nesse ambiente:src/main/resources/application-dev.properties.
@@ -117,7 +130,7 @@ O ambiente de testes utiliza o banco de dados MySQL. Para executar a aplicação
 
 Lembrando que é necessário ter as configurações de conexão com o banco de dados MySQL definidas no arquivo src/main/resources/application-test.properties.
 
-## Retry
+## Resilienc4j - Retry
 O Retry é utilizado para lidar com possíveis falhas temporárias na comunicação com o RabbitMQ. O componente RetryComponent é responsável por criar um objeto RetryRegistry, que guarda as configurações de retry, e por executar um bloco de código com a opção de retry, através do método executeWithRetry.
 
 Abaixo estão as configurações do retry:
@@ -127,7 +140,7 @@ Abaixo estão as configurações do retry:
 
 Essas configurações estão definidas no arquivo **application.properties**, na seção retry. Caso seja necessário alterá-las, basta atualizar os valores correspondentes nessa seção.
 
-## Prometheus
+## Monitoramento - Prometheus
 
 O Prometheus é utilizado para monitorar a aplicação e coletar métricas de performance e disponibilidade. A implementação das métricas é feita através do uso da biblioteca Micrometer, que possui integração com o Prometheus.
 
